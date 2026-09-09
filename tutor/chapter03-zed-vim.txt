@@ -1,0 +1,320 @@
+
+===============================================================================
+=                    Z E D   V I M   T U T O R                                =
+===============================================================================
+=                         CHAPTER THREE: ZED VIM                               =
+===============================================================================
+
+     Zed's Vim mode combines modal editing with Zed's panes, panels, parser,
+     language servers, diagnostics, and command palette.  This chapter focuses
+     on those Zed-specific integrations.
+
+     This chapter stands on its own, but it assumes that you know how to move
+     with h, j, k, and l and how to switch between Normal and Insert modes.
+
+     ATTENTION:
+     The commands in the lessons will modify this text and may open panes or
+     panels.  That is expected.  When you run `zedtutor --chapter 3`, a fresh
+     practice copy is created.
+
+     Before starting:
+       1. Make sure Zed Vim mode is enabled.
+       2. Press <ESC> so you are in Normal mode.
+       3. Press j enough times to move down to Lesson 3.1.1.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		       Lesson 3.1.1: THE COMMAND PALETTE
+
+
+	 ** In Zed Vim mode,  :  opens Zed's command palette. **
+
+  1. Press <ESC> to enter Normal mode.
+
+  2. Press  : .
+
+     You can type supported Vim-style Ex aliases such as:
+
+	:w		save
+	:q		close the current buffer
+	:wq		save and close
+	:q!		close without saving
+	:vs		vertical split
+	:sp		horizontal split
+	:ls		show buffers
+	:Explore	open the project panel
+	:term		open the terminal
+
+  3. Press <ESC> to dismiss the palette without running a command.
+
+NOTE: Zed does not emulate every Vim Ex command.  The command palette combines
+      supported Vim-style aliases with native Zed commands.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			       Lesson 3.1 SUMMARY
+
+
+  1. In Normal mode, : opens Zed's command palette.
+
+  2. The palette accepts supported Vim-style aliases for saving, closing
+     buffers, splitting panes, showing buffers, and opening panels.
+
+  3. Press <ESC> to dismiss the palette without running a command.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		      Lesson 3.2.1: SPLITTING PANES
+
+
+       ** Use  :vs  and  :sp  to split the current Zed pane. **
+
+  1. Press <ESC> to make sure you are in Normal mode.
+
+  2. Type:
+
+	:vs <ENTER>
+
+     Zed splits the current pane vertically.
+
+  3. Type:
+
+	:sp <ENTER>
+
+     Zed splits the current pane horizontally.
+
+  4. Move between the panes, then type:
+
+	:q <ENTER>
+
+     to close the current buffer in the active pane.
+
+NOTE: Zed supports Vim-style pane-management commands, but its command line is
+      not a complete Vim Ex implementation.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		    Lesson 3.2.2: BUFFERS AND THE PROJECT PANEL
+
+
+	 ** Use  :ls  to view buffers and  :Explore  to open the project panel. **
+
+  1. Type:
+
+	:ls <ENTER>
+
+     Zed shows the currently open buffers.
+
+  2. Type:
+
+	:Explore <ENTER>
+
+     Zed opens the project panel.
+
+  3. In the project panel, Vim-style navigation is available.  You can use
+     h, j, k, and l to move around, and o to open an item.
+
+  4. Return to this tutor when you are finished exploring.
+
+NOTE: This is an example of Zed keeping Vim muscle memory while integrating
+      with Zed's own interface.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		   Lesson 3.2.3: OPENING THE TERMINAL
+
+
+	      ** Type  :term  to open Zed's terminal. **
+
+  1. Press <ESC> to make sure you are in Normal mode.
+
+  2. Type:
+
+	:term <ENTER>
+
+     Zed opens its terminal panel.
+
+  3. Use the terminal normally, then return to this tutor.
+
+NOTE: Classic Vim's :!command, :r !command, and filename arguments to commands
+      are not the focus here.  Zed exposes its own panels and workflows instead.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			       Lesson 3.2 SUMMARY
+
+
+  1. :vs splits the pane vertically.
+     :sp splits the pane horizontally.
+
+  2. :ls shows open buffers.
+
+  3. :Explore opens Zed's project panel.
+
+  4. :term opens Zed's terminal panel.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			    Lesson 3.3.1: ZED VIM OPTIONS
+
+
+       ** Use  :set  to change useful options for the current buffer. **
+
+  1. Type:
+
+	:set number <ENTER>
+
+     to show line numbers.  Use  :set nonumber  to hide them again.
+
+  2. Type:
+
+	:set relativenumber <ENTER>
+
+     to show relative line numbers around the cursor.
+
+  3. Type:
+
+	:set norelativenumber <ENTER>
+
+     to turn relative line numbers off again.
+
+  4. Search for 'ignore' using:
+
+	/ignore <ENTER>
+
+  5. Enable case-insensitive searching with:
+
+	:set ignorecase <ENTER>
+
+     Press  n  several times and notice that IGNORE, Ignore, and ignore can all
+     match.
+
+  6. Disable it again with:
+
+	:set noignorecase <ENTER>
+
+---> ignore Ignore IGNORE
+
+NOTE: Zed supports a useful subset of Vim's :set options, integrated with Zed's
+      own editor settings.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		   Lesson 3.3.2: SEARCH AND SUBSTITUTION IN ZED
+
+
+   ** Familiar Vim commands use Zed's search and regular-expression engine. **
+
+  1. Search forward with  / , backward with  ? , and repeat matches with
+     n or N.  Zed provides the underlying search interface while preserving
+     this Vim-style workflow.
+
+  2. Simple substitutions use familiar commands such as:
+
+	:s/old/new/g
+	:%s/old/new/g
+
+  3. Advanced patterns use Zed's regular-expression syntax rather than Vim's.
+     Zed uses normal capture groups such as  (text)  and replacement groups
+     such as  $1 .
+
+  4. Move to the line below and type  :s/Zde/Zed/g <ENTER> .
+
+---> Zde search and Zde substitution share the editor's regex engine.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			       Lesson 3.3 SUMMARY
+
+
+  1. Zed supports a focused set of :set options, including:
+
+	:set number		:set nonumber
+	:set relativenumber	:set norelativenumber
+	:set ignorecase	:set noignorecase
+
+  2. The familiar /, ?, n, and N commands use Zed's search system.
+
+  3. Simple substitutions look like Vim substitutions, while advanced patterns
+     follow Zed's regular-expression syntax.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		      Lesson 3.4.1: SURROUND AND COMMENTING
+
+
+   ** Zed includes surround and commenting commands in its Vim mode. **
+
+  Some useful surround commands are:
+
+	ys	surround a text object
+	cs	change surrounding characters
+	ds	delete surrounding characters
+
+  Try this exercise on the word below:
+
+  1. Move the cursor onto  practice .
+  2. Type  ysiw"  to surround the word with double quotes.
+  3. Type  cs"'  to change the double quotes to single quotes.
+  4. Type  ds'  to remove the quotes.
+
+---> practice
+
+  Zed also supports:
+
+	gc	comment or uncomment a Visual selection
+	gcc	comment or uncomment the current line
+
+NOTE: Comment commands depend on the current file type, so they may not visibly
+      change this plain-text tutor.  Practice them in a source-code file.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		    Lesson 3.4.2: TREE-SITTER-AWARE EDITING
+
+
+   ** Zed can use parsed syntax where plain-text Vim uses characters. **
+
+  Zed's Vim mode provides syntax-aware motions and text objects through its
+  Tree-sitter syntax tree.  In source-code files, Zed knows about structures
+  such as functions, classes, and arguments rather than seeing only text.
+
+  Matching with  %  can also use semantic parsing when appropriate.
+
+  These features need a supported source-code file, so return to this lesson
+  while working in a real codebase and explore Zed's available Vim text objects.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			 Lesson 3.4.3: NAVIGATING CODE IN ZED
+
+
+   ** Zed connects Vim-style shortcuts to language-server navigation. **
+
+  When editing a supported source-code file, try:
+
+	gd	go to definition
+	gD	go to declaration
+	gy	go to type definition
+	gI	go to implementation
+
+	gs	find a symbol in the current file
+	gS	find a symbol in the project
+
+	]d	go to the next diagnostic
+	[d	go to the previous diagnostic
+	gh	show inline error information
+	g.	open code actions
+
+  These are Zed-specific integrations rather than classic Vim commands.
+  They let you keep a modal editing workflow while using Zed's language-server
+  and diagnostics features.
+
+  You do not need to practice these commands inside this plain-text tutor.
+  Return to them when you are editing a real codebase.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			       Lesson 3.4 SUMMARY
+
+
+  1. Zed includes built-in surround and commenting commands such as:
+	ys	cs	ds	gc	gcc
+
+  2. Tree-sitter-aware motions and text objects operate on parsed code.
+
+  3. Zed integrates Vim-style shortcuts with language-server navigation:
+	gd	gD	gy	gI	gs	gS
+
+  4. Diagnostics can be navigated with:
+	]d	[d
+
+  5. Zed's Vim mode is intentionally not a one-to-one copy of Vim.  It keeps
+     the modal editing model while using Zed's own parser, search system,
+     multiple cursors, language servers, panes, and panels.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  This concludes Chapter 3: Zed Vim.
+
+  You have explored how Zed carries Vim-style workflows into its command
+  palette, panes, project panel, terminal, parser, and language tooling.
+
+  Keep practicing these integrations in real source files, where syntax-aware
+  text objects, commenting, language-server navigation, diagnostics, and code
+  actions have the context they need.
+
+  Run `zedtutor --chapter 3` whenever you want a fresh practice copy.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

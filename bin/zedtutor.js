@@ -2,36 +2,40 @@
 
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { formatAvailableChapters, formatHelp, parseArgs } from '../src/cli.js';
 import { createSession } from '../src/session.js';
 import { findZedCommand, openInZed } from '../src/zed.js';
 
 const VERSION = '0.1.0';
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const templatePath = join(__dirname, '..', 'tutor', 'tutor.txt');
 
 function printHelp() {
-  console.log(
-    `zedtutor ${VERSION}\n\nUsage:\n  zedtutor\n  zedtutor --help\n  zedtutor --version\n\nOpens a fresh Vim practice session in a dedicated Zed window.\n`,
-  );
+  console.log(formatHelp(VERSION));
 }
 
 async function main() {
-  const args = process.argv.slice(2);
+  let command;
 
-  if (args.includes('--help') || args.includes('-h')) {
-    printHelp();
-    return;
-  }
+  try {
+    command = parseArgs(process.argv.slice(2));
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : error);
 
-  if (args.includes('--version') || args.includes('-v')) {
-    console.log(VERSION);
-    return;
-  }
+    if (error instanceof Error && error.message.startsWith('Unknown chapter:')) {
+      console.error(`\nAvailable chapters:\n${formatAvailableChapters()}`);
+    }
 
-  if (args.length > 0) {
-    console.error(`Unknown argument: ${args[0]}`);
-    printHelp();
     process.exitCode = 1;
+    return;
+  }
+
+  if (command.action === 'help') {
+    printHelp();
+    return;
+  }
+
+  if (command.action === 'version') {
+    console.log(VERSION);
     return;
   }
 
@@ -44,10 +48,13 @@ async function main() {
     return;
   }
 
+  const templatePath = join(__dirname, '..', 'tutor', command.chapter.file);
   const sessionPath = await createSession({ templatePath });
   openInZed(zed, sessionPath);
 
-  console.log('Opening a fresh Zed Vim Tutor session...');
+  console.log(
+    `Opening Chapter ${command.chapter.number} (${command.chapter.title}) in a fresh Zed Vim Tutor session...`,
+  );
   console.log(sessionPath);
 }
 
