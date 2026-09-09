@@ -1,0 +1,303 @@
+===============================================================================
+                         Z E D   V I M   T U T O R
+===============================================================================
+
+Welcome to zedtutor.
+
+This file is meant to be edited. Do the exercises directly in this buffer.
+If something goes wrong, quit without worrying and run `zedtutor` again to get
+another fresh copy.
+
+Before starting:
+
+  1. Make sure Zed Vim mode is enabled.
+  2. Press <Esc> so you are in Normal mode.
+  3. Avoid the mouse while doing the exercises.
+
+Notation used here:
+
+  <Esc>     press the Escape key
+  <Enter>   press Enter/Return
+  <C-r>     hold Control and press r
+
+-------------------------------------------------------------------------------
+LESSON 1: MOVING AROUND
+-------------------------------------------------------------------------------
+
+In Normal mode, use:
+
+                         k
+                         ^
+                    h <- + -> l
+                         v
+                         j
+
+Exercise 1.1
+Move the cursor onto the word TARGET using only h, j, k, and l.
+
+Do not edit this line.                         TARGET
+
+Exercise 1.2
+Move to each X in order without using the mouse or arrow keys.
+
+X                 X                 X
+
+                  X
+
+X                                   X
+
+TIP: You do not have to hold the keys down. Accuracy first, speed later.
+
+-------------------------------------------------------------------------------
+LESSON 2: INSERTING TEXT
+-------------------------------------------------------------------------------
+
+Normal mode is for commands. Insert mode is for typing text.
+
+  i     insert before the cursor
+  a     append after the cursor
+  I     insert at the first non-blank character of the line
+  A     append at the end of the line
+  <Esc> return to Normal mode
+
+Exercise 2.1
+Place the cursor on the first character below. Press i and insert "very ".
+Press <Esc> when finished.
+
+This is useful.
+
+Expected result:
+
+This is very useful.
+
+Exercise 2.2
+Use A to add " in Zed." to the end of this line:
+
+Vim mode feels natural
+
+-------------------------------------------------------------------------------
+LESSON 3: DELETE, REPLACE, AND UNDO
+-------------------------------------------------------------------------------
+
+  x     delete the character under the cursor
+  r{c}  replace the character under the cursor with {c}
+  u     undo the last change
+  <C-r> redo
+
+Exercise 3.1
+Delete the extra characters with x:
+
+Thiss sentennce hass tooo many letterss.
+
+Exercise 3.2
+Change the incorrect character using r:
+
+Vim is fum.
+
+Exercise 3.3
+Make any small edit to the following line, then press u to undo it.
+After that, press <C-r> to redo it.
+
+Undo and redo are worth practicing.
+
+-------------------------------------------------------------------------------
+LESSON 4: WORD MOTIONS
+-------------------------------------------------------------------------------
+
+These motions become much more useful than repeatedly pressing h or l:
+
+  w     move to the start of the next word
+  b     move to the start of the previous word
+  e     move to the end of the word
+  0     move to the start of the line
+  ^     move to the first non-blank character
+  $     move to the end of the line
+
+Exercise 4.1
+Start on ONE and reach SIX using w.
+
+ONE TWO THREE FOUR FIVE SIX
+
+Exercise 4.2
+Start at the end of this line and use b to move backward word by word.
+
+alpha beta gamma delta epsilon
+
+-------------------------------------------------------------------------------
+LESSON 5: OPERATORS + MOTIONS
+-------------------------------------------------------------------------------
+
+Many Vim commands form a small language:
+
+  operator + motion
+
+The delete operator is d.
+
+  dw    delete from the cursor through the next word boundary
+  de    delete through the end of the word
+  d$    delete from the cursor to the end of the line
+  dd    delete the whole line
+
+Exercise 5.1
+Use dw to remove the word "unwanted".
+
+Keep unwanted this sentence.
+
+Exercise 5.2
+Place the cursor on the word REMOVE and use d$.
+
+Keep everything before this. REMOVE EVERYTHING AFTER THIS TOO.
+
+Exercise 5.3
+Delete the entire line marked DELETE ME with dd.
+
+keep this line
+DELETE ME
+keep this line too
+
+The change operator c works similarly to d, but enters Insert mode afterward:
+
+  cw    change a word
+  c$    change to end of line
+  cc    change a whole line
+
+Exercise 5.4
+Use cw to replace "wrong" with "right".
+
+This word is wrong.
+
+-------------------------------------------------------------------------------
+LESSON 6: COUNTS
+-------------------------------------------------------------------------------
+
+Most motions and commands accept a count:
+
+  3w    move forward three words
+  5j    move down five lines
+  2dd   delete two lines
+  3x    delete three characters
+
+Exercise 6.1
+Place the cursor on ONE, then reach FOUR with a single counted motion.
+
+ONE TWO THREE FOUR FIVE
+
+Exercise 6.2
+Delete the three X characters with a single command.
+
+XXXkeep this
+
+-------------------------------------------------------------------------------
+LESSON 7: YANK AND PUT
+-------------------------------------------------------------------------------
+
+Vim calls copying "yanking" and pasting "putting".
+
+  yy    yank the current line
+  yw    yank a word
+  p     put after the cursor / below the current line
+  P     put before the cursor / above the current line
+
+Exercise 7.1
+Yank the COPY ME line with yy, move to the blank line below, then press p.
+
+COPY ME
+
+
+Exercise 7.2
+Delete the middle line with dd. Then use P to put it back above the cursor.
+
+first
+restore me
+third
+
+-------------------------------------------------------------------------------
+LESSON 8: SEARCH
+-------------------------------------------------------------------------------
+
+  /text   search forward
+  ?text   search backward
+  n       repeat the search in the same direction
+  N       repeat it in the opposite direction
+
+Exercise 8.1
+Type /needle and press <Enter>. Then use n to visit each occurrence.
+
+hay hay needle hay hay needle hay needle hay
+
+Exercise 8.2
+Search backward for START using ?START.
+
+START alpha beta gamma delta
+
+-------------------------------------------------------------------------------
+LESSON 9: VISUAL MODE
+-------------------------------------------------------------------------------
+
+Visual mode lets you select text before operating on it.
+
+  v     character-wise Visual mode
+  V     line-wise Visual mode
+  <Esc> leave Visual mode
+
+You can combine a Visual selection with commands such as d, y, or c.
+
+Exercise 9.1
+Place the cursor on SELECT, press v, extend the selection over the phrase,
+and press d.
+
+Keep this. SELECT AND DELETE THIS. Keep this too.
+
+Exercise 9.2
+Use V to select the middle two lines, then yank them with y.
+
+line one
+line two
+line three
+line four
+
+-------------------------------------------------------------------------------
+LESSON 10: A FEW ZED-SPECIFIC BASICS
+-------------------------------------------------------------------------------
+
+Zed's Vim mode is not a one-to-one copy of Vim. It keeps familiar Vim behavior
+where it fits and integrates it with Zed's own editor features.
+
+Useful Ex-style commands supported by Zed include:
+
+  :w       save the current file
+  :q       close the current buffer
+  :wq      save and close
+  :vs      split vertically
+  :sp      split horizontally
+  :ls      show open buffers
+  :Explore open the project panel
+
+Exercise 10.1
+Type :w and press <Enter> to save this practice session.
+
+Optional exploration:
+
+  - Try :vs and :sp, then close the extra pane when finished.
+  - Try :ls to view your open buffers.
+  - Try :Explore to open Zed's project panel.
+
+Zed also provides Vim-style integrations beyond classic motions. Once the core
+lessons feel comfortable, useful areas to explore include text objects,
+surrounding text, commenting with gcc/gc, pane navigation, diagnostics,
+language-server navigation, and multiple cursors.
+
+-------------------------------------------------------------------------------
+FINISHED
+-------------------------------------------------------------------------------
+
+You have practiced the core loop that makes Vim editing click:
+
+  move -> operate -> repeat
+
+Do these exercises again until you stop translating each command in your head.
+Then move on to text objects and Zed-specific navigation.
+
+Run `zedtutor` again whenever you want a fresh copy.
+
+===============================================================================
