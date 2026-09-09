@@ -11,7 +11,7 @@ const templatePath = join(__dirname, '..', 'tutor', 'tutor.txt');
 
 function printHelp() {
   console.log(
-    `zedtutor ${VERSION}\n\nUsage:\n  zedtutor\n  zedtutor --help\n  zedtutor --version\n\nOpens a fresh Vim practice session in the currently focused Zed workspace.\n`,
+    `zedtutor ${VERSION}\n\nUsage:\n  zedtutor\n  zedtutor --help\n  zedtutor --version\n\nOpens a fresh Vim practice session in a dedicated Zed window.\n`,
   );
 }
 
