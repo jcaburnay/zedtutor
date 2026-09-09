@@ -8,7 +8,7 @@ Running:
 
 ```bash
 zedtutor
-````
+```
 
 creates a fresh tutorial session and opens it in a dedicated Zed window.
 
@@ -18,22 +18,22 @@ Early v0.1 MVP.
 
 The current tutor covers:
 
-* cursor movement
-* entering and leaving Insert mode
-* deleting and undoing
-* operators and motions
-* counts
-* yank and put
-* search
-* Visual mode
-* basic Zed-specific Vim usage
+- cursor movement
+- entering and leaving Insert mode
+- deleting and undoing
+- operators and motions
+- counts
+- yank and put
+- search
+- Visual mode
+- basic Zed-specific Vim usage
 
 ## Requirements
 
-* Node.js 20+
-* pnpm
-* Zed with Vim mode enabled
-* the `zed` CLI installed
+- Node.js 20+
+- pnpm
+- Zed with Vim mode enabled
+- the `zed` CLI installed
 
 On macOS, install the Zed CLI from Zed's command palette:
 
@@ -226,27 +226,27 @@ GitHub Actions validates changes on pushes and pull requests to `main`.
 
 The workflow checks:
 
-* linting
-* formatting
-* tests
-* package contents
-* compatibility with supported Node.js versions
+- linting
+- formatting
+- tests
+- package contents
+- compatibility with supported Node.js versions
 
 ## Roadmap
 
 Potential follow-ups include:
 
-* selectable lessons
-* `zedtutor next`
-* progress tracking
-* additional Zed-specific navigation
-* text objects
-* surround commands
-* commenting
-* exchange
-* multi-cursor exercises
-* npm distribution
-* Homebrew installation
+- selectable lessons
+- `zedtutor next`
+- progress tracking
+- additional Zed-specific navigation
+- text objects
+- surround commands
+- commenting
+- exchange
+- multi-cursor exercises
+- npm distribution
+- Homebrew installation
 
 ## License
 
