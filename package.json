@@ -1,0 +1,30 @@
+{
+  "name": "zedtutor",
+  "version": "0.1.0",
+  "description": "An interactive Vim tutor designed to be practiced inside Zed.",
+  "type": "module",
+  "bin": {
+    "zedtutor": "./bin/zedtutor.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "zed",
+    "vim",
+    "vimtutor",
+    "tutorial",
+    "cli"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin",
+    "src",
+    "tutor",
+    "README.md",
+    "LICENSE"
+  ]
+}
