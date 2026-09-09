@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { EventEmitter } from 'node:events';
 import test from 'node:test';
 import { findZedCommand, openInZed } from '../src/zed.js';
 
@@ -61,9 +62,9 @@ test('findZedCommand skips commands that fail to spawn', () => {
   assert.equal(command, 'zeditor');
 });
 
-test('openInZed opens the session in a detached new Zed window', () => {
+test('openInZed opens a new Zed window and waits for the session to close', async () => {
   let spawnCall;
-  let unrefCalled = false;
+  const child = new EventEmitter();
 
   const fakeSpawn = (command, args, options) => {
     spawnCall = {
@@ -72,23 +73,28 @@ test('openInZed opens the session in a detached new Zed window', () => {
       options,
     };
 
-    return {
-      unref() {
-        unrefCalled = true;
-      },
-    };
+    return child;
   };
 
-  openInZed('zed', '/tmp/zedtutor/chapter01-fundamentals.txt', fakeSpawn);
+  const closed = openInZed('zed', '/tmp/zedtutor-abcd/chapter01-fundamentals.txt', fakeSpawn);
 
   assert.deepEqual(spawnCall, {
     command: 'zed',
-    args: ['-n', '/tmp/zedtutor/chapter01-fundamentals.txt'],
+    args: ['-n', '--wait', '/tmp/zedtutor-abcd/chapter01-fundamentals.txt'],
     options: {
-      detached: true,
       stdio: 'ignore',
     },
   });
 
-  assert.equal(unrefCalled, true);
+  child.emit('close', 1);
+  await closed;
+});
+
+test('openInZed reports launcher errors', async () => {
+  const child = new EventEmitter();
+  const opened = openInZed('zed', '/tmp/tutorial.txt', () => child);
+
+  child.emit('error', new Error('could not launch Zed'));
+
+  await assert.rejects(opened, /could not launch Zed/);
 });
