@@ -198,7 +198,8 @@ zedtutor/
 │   └── zed.test.js
 ├── tutor/
 │   ├── tutor.txt
-│   └── UPSTREAM.md
+│   ├── UPSTREAM.md
+│   └── VIMTUTOR-CHANGES.patch
 ├── .editorconfig
 ├── .gitignore
 ├── .nvmrc
