@@ -2,9 +2,9 @@
 
 `zedtutor` is a small, hands-on Vim tutorial designed to be practiced directly inside [Zed](https://zed.dev/).
 
-The tutorial content is adapted from the official Vim Tutor and modified for
-Zed's Vim mode. Instead of only reading about Vim motions and commands, you
-practice them directly inside Zed.
+Chapter 1 is adapted from the official Vim Tutor, while Chapter 3 covers
+Zed-specific Vim integrations. Instead of only reading about motions and
+commands, you practice them directly inside Zed.
 
 Running:
 
@@ -14,11 +14,28 @@ zedtutor
 
 creates a fresh tutorial session and opens it in a dedicated Zed window.
 
+## Chapters
+
+- Chapter 1: Fundamentals
+- Chapter 2: Advanced — planned, coming soon
+- Chapter 3: Zed Vim
+
+Running `zedtutor` without an option opens Chapter 1. You can select an
+available chapter explicitly:
+
+```bash
+zedtutor --chapter 1
+zedtutor -c 1
+zedtutor --chapter 3
+```
+
+Chapter numbers may be zero-padded, so `--chapter 01` also opens Chapter 1.
+
 ## Status
 
 Early v0.1 MVP.
 
-The current tutor covers:
+The available chapters cover:
 
 - cursor movement
 - entering and leaving Insert mode
@@ -28,7 +45,9 @@ The current tutor covers:
 - yank and put
 - search
 - Visual mode
-- basic Zed-specific Vim usage
+- Zed's command palette and supported Ex-style aliases
+- panes, buffers, the project panel, and the terminal
+- Zed Vim options, surround, commenting, Tree-sitter, LSP, and diagnostics
 
 ## Requirements
 
@@ -88,28 +107,33 @@ source ~/.zshrc
 
 `zedtutor` keeps the source tutorial untouched.
 
-Each time you run:
+Each time you run a chapter, for example:
 
 ```bash
-zedtutor
+zedtutor --chapter 3
 ```
 
 it:
 
-1. copies the pristine `tutor/tutor.txt` into a temporary session file
-2. opens that session in a new Zed window
-3. lets you freely edit the tutorial while practicing Vim commands
+1. resolves the number through the explicit chapter registry
+2. copies the selected pristine tutorial into a temporary session file with the
+   same chapter filename
+3. opens that session in a new Zed window
+4. lets you freely edit the tutorial while practicing Vim commands
 
 The basic flow is:
 
 ```text
-zedtutor
+zedtutor --chapter 3
     │
     ▼
-copy tutor/tutor.txt
+resolve Chapter 3
     │
     ▼
-temporary session
+copy tutor/chapter03-zed-vim.txt
+    │
+    ▼
+temporary chapter03-zed-vim.txt session
     │
     ▼
 zed -n <session>
@@ -118,7 +142,8 @@ zed -n <session>
 dedicated Zed window
 ```
 
-Because the tutorial runs from a copy, restarting `zedtutor` always gives you a fresh session.
+Because each tutorial runs from a copy, restarting a chapter always gives you a
+fresh session.
 
 ## Development
 
@@ -190,14 +215,19 @@ zedtutor/
 ├── LICENSES/
 │   └── VIM-LICENSE.txt
 ├── src/
+│   ├── chapters.js
+│   ├── cli.js
 │   ├── session.js
 │   └── zed.js
 ├── test/
+│   ├── args.test.js
+│   ├── chapters.test.js
 │   ├── cli.test.js
 │   ├── session.test.js
 │   └── zed.test.js
 ├── tutor/
-│   ├── tutor.txt
+│   ├── chapter01-fundamentals.txt
+│   ├── chapter03-zed-vim.txt
 │   ├── UPSTREAM.md
 │   └── VIMTUTOR-CHANGES.patch
 ├── .editorconfig
@@ -219,11 +249,14 @@ Contains the `zedtutor` CLI entry point.
 
 ### `src/`
 
-Contains the session creation and Zed launching logic.
+Contains the chapter registry, argument parsing, session creation, and Zed
+launching logic.
 
 ### `tutor/`
 
-Contains the pristine tutorial source.
+Contains the available pristine chapter tutorials plus the Vim Tutor provenance
+record and generated patch. Chapter 2 is registered as planned but does not have
+a placeholder file.
 
 ### `test/`
 
@@ -245,13 +278,11 @@ The workflow checks:
 
 Potential follow-ups include:
 
+- Chapter 2: Advanced
 - selectable lessons
 - `zedtutor next`
 - progress tracking
-- additional Zed-specific navigation
 - text objects
-- surround commands
-- commenting
 - exchange
 - multi-cursor exercises
 - npm distribution
@@ -262,8 +293,9 @@ Potential follow-ups include:
 The original zedtutor CLI, tests, configuration, and project documentation are
 licensed under the MIT License.
 
-The tutorial content in `tutor/tutor.txt` is derived from Vim's official
-`vimtutor` and is distributed under the Vim License.
+Chapter 1 in `tutor/chapter01-fundamentals.txt` is derived from Vim's official
+`vimtutor` and is distributed under the Vim License. Chapter 3 is original
+zedtutor content and is licensed under the MIT License.
 
 See:
 

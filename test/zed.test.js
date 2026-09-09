@@ -79,11 +79,11 @@ test('openInZed opens the session in a detached new Zed window', () => {
     };
   };
 
-  openInZed('zed', '/tmp/zedtutor/tutor.txt', fakeSpawn);
+  openInZed('zed', '/tmp/zedtutor/chapter01-fundamentals.txt', fakeSpawn);
 
   assert.deepEqual(spawnCall, {
     command: 'zed',
-    args: ['-n', '/tmp/zedtutor/tutor.txt'],
+    args: ['-n', '/tmp/zedtutor/chapter01-fundamentals.txt'],
     options: {
       detached: true,
       stdio: 'ignore',

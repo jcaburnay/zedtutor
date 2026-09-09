@@ -7,7 +7,7 @@ import { createSession } from '../src/session.js';
 
 test('createSession copies the tutor template into a writable session file', async () => {
   const root = await mkdtemp(join(tmpdir(), 'zedtutor-test-'));
-  const templatePath = join(root, 'template.txt');
+  const templatePath = join(root, 'chapter01-fundamentals.txt');
   const sessionDir = join(root, 'session');
 
   await writeFile(templatePath, 'practice me\n', 'utf8');
@@ -15,7 +15,7 @@ test('createSession copies the tutor template into a writable session file', asy
   const sessionPath = await createSession({ templatePath, sessionDir });
   const contents = await readFile(sessionPath, 'utf8');
 
-  assert.equal(sessionPath, join(sessionDir, 'tutor.txt'));
+  assert.equal(sessionPath, join(sessionDir, 'chapter01-fundamentals.txt'));
   assert.equal(contents, 'practice me\n');
 });
 
@@ -32,4 +32,16 @@ test('createSession resets a previous session from the pristine template', async
   const contents = await readFile(sessionPath, 'utf8');
 
   assert.equal(contents, 'original\n');
+});
+
+test('createSession preserves the selected chapter filename', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'zedtutor-test-'));
+  const templatePath = join(root, 'chapter03-zed-vim.txt');
+  const sessionDir = join(root, 'session');
+
+  await writeFile(templatePath, 'Zed Vim practice\n', 'utf8');
+
+  const sessionPath = await createSession({ templatePath, sessionDir });
+
+  assert.equal(sessionPath, join(sessionDir, 'chapter03-zed-vim.txt'));
 });
