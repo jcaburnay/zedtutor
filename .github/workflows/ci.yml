@@ -10,8 +10,39 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  validate:
+    name: Validate
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.3.4
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate
+        run: pnpm validate
+
+      - name: Verify package contents
+        run: npm pack --dry-run
+
+  compatibility:
+    name: Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [20, 22, 24]
@@ -20,13 +51,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.3.4
+          run_install: false
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Test
-        run: npm test
-
-      - name: Verify package contents
-        run: npm pack --dry-run
+        run: pnpm test
