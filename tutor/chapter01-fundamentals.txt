@@ -34,7 +34,7 @@
    ** To move the cursor, press the h,j,k,l keys as indicated. **
 	     ^
 	     k		    Hint:  The h key is at the left and moves left.
-       < h	 l >		   The l key is at the right and moves right.
+  < h	    l >		   The l key is at the right and moves right.
 	     j			   The j key looks like a down arrow.
 	     v
   1. Move the cursor around the screen until you are comfortable.
@@ -723,7 +723,8 @@ NOTE:  Replace mode is like Insert mode, but every typed character deletes an
 	startup configuration
 
   Run `zedtutor --chapter 1` whenever you want a fresh practice copy.
-  Continue with Chapter 3 to learn how Zed extends the Vim editing model.
+  Continue with Chapter 2 to build on these fundamentals with text objects,
+  registers, clipboard control, and marks.
 
 
   ---------------------------------------------------------------------------

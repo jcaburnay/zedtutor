@@ -287,6 +287,7 @@ NOTE: Marks and registers do not share a namespace.  Register a is independent
 	operator -> text object or marked destination
 
   Run `zedtutor --chapter 2` whenever you want a fresh practice copy.
+  Continue with Chapter 3 to learn how Zed extends the Vim editing model.
 
 
   ---------------------------------------------------------------------------

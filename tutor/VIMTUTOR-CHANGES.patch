@@ -1,5 +1,5 @@
 diff --git a/tmp/vimtutor1 b/tutor/chapter01-fundamentals.txt
-index 790de39..10500a1 100644
+index 790de39..8716c84 100644
 --- a/tmp/vimtutor1
 +++ b/tutor/chapter01-fundamentals.txt
 @@ -0,0 +1 @@
@@ -46,6 +46,9 @@ index 790de39..10500a1 100644
 +
 +     This tutorial is adapted from the Vim Tutor distributed with Vim.
 +     See the repository's attribution and Vim License files for details.
+@@ -31 +37 @@
+-       < h	 l >		   The l key is at the right and moves right.
++  < h	    l >		   The l key is at the right and moves right.
 @@ -46 +51,0 @@ NOTE: The cursor keys should also work.  But using hjkl you will be able to
 -
 @@ -48 +53 @@ NOTE: The cursor keys should also work.  But using hjkl you will be able to
@@ -706,21 +709,22 @@ index 790de39..10500a1 100644
 +	the :set command
 +	external commands
 +	startup configuration
-@@ -946,2 +725,2 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
+@@ -946,2 +725,3 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 -  This concludes Chapter 1 of the Vim Tutor.  Consider continuing with
 -  Chapter 2 which covers registers, marks and the use of text objects.
 +  Run `zedtutor --chapter 1` whenever you want a fresh practice copy.
-+  Continue with Chapter 3 to learn how Zed extends the Vim editing model.
-@@ -949,3 +727,0 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
++  Continue with Chapter 2 to build on these fundamentals with text objects,
++  registers, clipboard control, and marks.
+@@ -949,3 +728,0 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 -  It was intended to give a brief overview of the Vim editor, just enough to
 -  allow you to use the editor fairly easily. It is far from complete as Vim
 -  has many many more commands.
-@@ -953 +729,3 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
+@@ -953 +730,3 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 -  Read the user manual next: ":help user-manual".
 +  ---------------------------------------------------------------------------
 +  UPSTREAM ATTRIBUTION
 +  ---------------------------------------------------------------------------
-@@ -955,6 +733 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
+@@ -955,6 +734 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 -  For further reading and studying, this book is recommended:
 -	Vim - Vi Improved - by Steve Oualline
 -	Publisher: New Riders
@@ -728,7 +732,7 @@ index 790de39..10500a1 100644
 -  There are many examples and pictures.
 -  See https://iccf-holland.org/click5.html
 +  This tutorial is derived from the Vim Tutor distributed with Vim.
-@@ -962,5 +735,3 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
+@@ -962,5 +736,3 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 -  This book is older and more about Vi than Vim, but also recommended:
 -	Learning the Vi Editor - by Linda Lamb
 -	Publisher: O'Reilly & Associates Inc.
@@ -737,13 +741,13 @@ index 790de39..10500a1 100644
 +  The original tutorial was written by Michael C. Pierce and Robert K. Ware,
 +  Colorado School of Mines, using ideas supplied by Charles Smith,
 +  Colorado State University.
-@@ -968,3 +739 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
+@@ -968,3 +740 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 -  This tutorial was written by Michael C. Pierce and Robert K. Ware,
 -  Colorado School of Mines using ideas supplied by Charles Smith,
 -  Colorado State University.  E-mail: bware@mines.colorado.edu.
 +  It was modified for Vim by Bram Moolenaar.
-@@ -972 +741 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
+@@ -972 +742 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 -  Modified for Vim by Bram Moolenaar.
 +  This version has been adapted as the fundamentals chapter of zedtutor.
-@@ -973,0 +743 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
+@@ -973,0 +744 @@ NOTE:  Completion works for many commands.  Just try pressing CTRL-D and
 +  See the repository's Vim License and attribution files for licensing details.

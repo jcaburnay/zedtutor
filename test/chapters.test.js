@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { access } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
@@ -50,4 +50,14 @@ test('availableChapters includes every chapter', () => {
 
 test('every available chapter template exists', async () => {
   await Promise.all(availableChapters().map((chapter) => access(join(tutorDir, chapter.file))));
+});
+
+test('tutorial conclusions direct learners through the chapter sequence', async () => {
+  const [chapter1, chapter2] = await Promise.all([
+    readFile(join(tutorDir, CHAPTERS[1].file), 'utf8'),
+    readFile(join(tutorDir, CHAPTERS[2].file), 'utf8'),
+  ]);
+
+  assert.match(chapter1, /Continue with Chapter 2/);
+  assert.match(chapter2, /Continue with Chapter 3/);
 });
