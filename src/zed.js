@@ -19,12 +19,24 @@ export function findZedCommand(candidates = CANDIDATES, spawnSyncImpl = spawnSyn
 
 export function openInZed(command, filePath, spawnImpl = spawn) {
   const child = spawnImpl(command, ['-n', '--wait', filePath], {
-    stdio: 'ignore',
+    stdio: ['ignore', 'ignore', 'inherit'],
   });
 
   return new Promise((resolve, reject) => {
     child.once('error', reject);
-    // Closing a disposable tutor without saving may produce a non-zero status.
-    child.once('close', () => resolve());
+    child.once('close', (code, signal) => {
+      if (signal) {
+        reject(new Error(`Zed CLI terminated by ${signal}.`));
+        return;
+      }
+
+      // Closing a disposable tutor without saving produces status 1.
+      if (code === 0 || code === 1) {
+        resolve();
+        return;
+      }
+
+      reject(new Error(`Zed CLI exited with status ${code ?? 'unknown'}.`));
+    });
   });
 }
