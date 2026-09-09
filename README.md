@@ -2,7 +2,9 @@
 
 `zedtutor` is a small, hands-on Vim tutorial designed to be practiced directly inside [Zed](https://zed.dev/).
 
-It follows the spirit of `vimtutor`: the tutorial itself is an editable text file. Instead of only reading about Vim motions and commands, you practice them directly in the editor.
+The tutorial content is adapted from the official Vim Tutor and modified for
+Zed's Vim mode. Instead of only reading about Vim motions and commands, you
+practice them directly inside Zed.
 
 Running:
 
@@ -185,13 +187,18 @@ zedtutor/
 │       └── ci.yml
 ├── bin/
 │   └── zedtutor.js
+├── LICENSES/
+│   └── VIM-LICENSE.txt
 ├── src/
 │   ├── session.js
 │   └── zed.js
 ├── test/
-│   └── session.test.js
+│   ├── cli.test.js
+│   ├── session.test.js
+│   └── zed.test.js
 ├── tutor/
-│   └── tutor.txt
+│   ├── tutor.txt
+│   └── UPSTREAM.md
 ├── .editorconfig
 ├── .gitignore
 ├── .nvmrc
@@ -199,6 +206,7 @@ zedtutor/
 ├── .prettierrc.json
 ├── eslint.config.js
 ├── LICENSE
+├── LICENSES.md
 ├── package.json
 ├── pnpm-lock.yaml
 └── README.md
