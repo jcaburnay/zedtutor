@@ -49,13 +49,18 @@ async function main() {
   }
 
   const templatePath = join(__dirname, '..', 'tutor', command.chapter.file);
-  const sessionPath = await createSession({ templatePath });
-  openInZed(zed, sessionPath);
+  const session = await createSession({ templatePath });
 
   console.log(
     `Opening Chapter ${command.chapter.number} (${command.chapter.title}) in a fresh Zed Vim Tutor session...`,
   );
-  console.log(sessionPath);
+  console.log(session.path);
+
+  try {
+    await openInZed(zed, session.path);
+  } finally {
+    await session.cleanup();
+  }
 }
 
 main().catch((error) => {

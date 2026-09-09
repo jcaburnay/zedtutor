@@ -120,10 +120,11 @@ zedtutor --chapter 3
 it:
 
 1. resolves the number through the explicit chapter registry
-2. copies the selected pristine tutorial into a temporary session file with the
-   same chapter filename
-3. opens that session in a new Zed window
+2. creates a unique temporary directory and copies the selected pristine
+   tutorial into it with the same chapter filename
+3. opens that session in a new Zed window and waits for it to close
 4. lets you freely edit the tutorial while practicing Vim commands
+5. removes the temporary session directory after the tutorial closes
 
 The basic flow is:
 
@@ -140,14 +141,18 @@ copy tutor/chapter03-zed-vim.txt
 temporary chapter03-zed-vim.txt session
     │
     ▼
-zed -n <session>
+zed -n --wait <session>
     │
     ▼
 dedicated Zed window
 ```
 
-Because each tutorial runs from a copy, restarting a chapter always gives you a
-fresh session.
+The `zedtutor` process remains active in the terminal while the tutorial is
+open. This lets it remove the temporary session safely after you close the file.
+
+Because each tutorial runs from a unique temporary copy, chapters can be open at the
+same time without sharing edits. Restarting a chapter always gives you a fresh
+session, and closing it removes its temporary files.
 
 ## Development
 

@@ -18,10 +18,13 @@ export function findZedCommand(candidates = CANDIDATES, spawnSyncImpl = spawnSyn
 }
 
 export function openInZed(command, filePath, spawnImpl = spawn) {
-  const child = spawnImpl(command, ['-n', filePath], {
-    detached: true,
+  const child = spawnImpl(command, ['-n', '--wait', filePath], {
     stdio: 'ignore',
   });
 
-  child.unref();
+  return new Promise((resolve, reject) => {
+    child.once('error', reject);
+    // Closing a disposable tutor without saving may produce a non-zero status.
+    child.once('close', () => resolve());
+  });
 }
