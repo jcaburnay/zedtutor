@@ -1,8 +1,6 @@
 import { spawn, spawnSync } from 'node:child_process';
 
-const CANDIDATES = process.platform === 'win32'
-  ? ['zed.exe', 'zed']
-  : ['zed', 'zeditor'];
+const CANDIDATES = process.platform === 'win32' ? ['zed.exe', 'zed'] : ['zed', 'zeditor'];
 
 export function findZedCommand(candidates = CANDIDATES) {
   for (const command of candidates) {
@@ -20,7 +18,7 @@ export function findZedCommand(candidates = CANDIDATES) {
 }
 
 export function openInZed(command, filePath) {
-  const child = spawn(command, ['-a', filePath], {
+  const child = spawn(command, ['-n', filePath], {
     detached: true,
     stdio: 'ignore',
   });

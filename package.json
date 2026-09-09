@@ -3,11 +3,17 @@
   "version": "0.1.0",
   "description": "An interactive Vim tutor designed to be practiced inside Zed.",
   "type": "module",
+  "packageManager": "pnpm@12.3.4",
   "bin": {
     "zedtutor": "./bin/zedtutor.js"
   },
   "scripts": {
-    "test": "node --test"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "node --test",
+    "validate": "eslint . && prettier . --check && node --test"
   },
   "keywords": [
     "zed",
@@ -26,5 +32,11 @@
     "tutor",
     "README.md",
     "LICENSE"
-  ]
+  ],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.6"
+  }
 }
