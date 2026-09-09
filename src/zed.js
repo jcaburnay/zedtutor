@@ -2,9 +2,9 @@ import { spawn, spawnSync } from 'node:child_process';
 
 const CANDIDATES = process.platform === 'win32' ? ['zed.exe', 'zed'] : ['zed', 'zeditor'];
 
-export function findZedCommand(candidates = CANDIDATES) {
+export function findZedCommand(candidates = CANDIDATES, spawnSyncImpl = spawnSync) {
   for (const command of candidates) {
-    const result = spawnSync(command, ['--version'], {
+    const result = spawnSyncImpl(command, ['--version'], {
       stdio: 'ignore',
       shell: false,
     });
@@ -17,8 +17,8 @@ export function findZedCommand(candidates = CANDIDATES) {
   return null;
 }
 
-export function openInZed(command, filePath) {
-  const child = spawn(command, ['-n', filePath], {
+export function openInZed(command, filePath, spawnImpl = spawn) {
+  const child = spawnImpl(command, ['-n', filePath], {
     detached: true,
     stdio: 'ignore',
   });
