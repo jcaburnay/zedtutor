@@ -1,23 +1,27 @@
 # Upstream tutor
 
-The zedtutor Chapter 1 lesson content is derived from the Vim Tutor distributed
-with Vim.
+The zedtutor Chapter 1 and Chapter 2 lesson content is derived from the Vim Tutor
+distributed with Vim.
 
 ## Source
 
 - Project: Vim
-- Source file: `runtime/tutor/tutor1`
+- Chapter 1 source file: `runtime/tutor/tutor1`
+- Chapter 2 source file: `runtime/tutor/tutor2`
 - Upstream revision: `b87f133b0724f7328e7dd41dd611af67f4ae3e39`
 
-The original tutor has been adapted into zedtutor's fundamentals chapter for use
-with Zed's Vim mode.
+The original tutor chapters have been adapted into zedtutor's fundamentals and
+advanced chapters for use with Zed's Vim mode.
 
 Changes include:
 
 - replacing Vim-specific startup and shutdown instructions
 - removing or adapting commands unsupported by Zed
 - adapting file and command-palette behavior
-- organizing the transferable fundamentals as Chapter 1
+- organizing transferable fundamentals as Chapter 1
+- adapting text-object, register, clipboard, and marks exercises as Chapter 2
+- omitting Vim's expression-register exercise because Zed does not support the
+  expression register
 
 The derived tutor content is distributed under the Vim License.
 
@@ -29,9 +33,16 @@ original project source code.
 
 ## Modifications
 
-The changes made to the upstream Vim Tutor are included in:
+The Chapter 1 changes are included in:
 
 `VIMTUTOR-CHANGES.patch`
 
-The patch compares the upstream source revision listed above with the adapted
-`chapter01-fundamentals.txt` distributed by zedtutor.
+This patch compares `runtime/tutor/tutor1` from the upstream revision listed
+above with the adapted `chapter01-fundamentals.txt` distributed by zedtutor.
+
+The Chapter 2 changes are included in:
+
+`VIMTUTOR-CHAPTER02-CHANGES.patch`
+
+This patch compares `runtime/tutor/tutor2` from the same upstream revision with
+the adapted `chapter02-advanced.txt` distributed by zedtutor.

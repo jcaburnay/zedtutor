@@ -30,7 +30,8 @@ test('zedtutor --help prints usage information', async () => {
   assert.match(stdout, /Usage:/);
   assert.match(stdout, /zedtutor --chapter <number>/);
   assert.match(stdout, /1 {2}Fundamentals/);
-  assert.match(stdout, /2 {2}Advanced\s+\(coming soon\)/);
+  assert.match(stdout, /2 {2}Advanced/);
+  assert.doesNotMatch(stdout, /coming soon/);
   assert.match(stdout, /3 {2}Zed Vim/);
   assert.match(stdout, /zedtutor --help/);
   assert.equal(stderr, '');
@@ -49,16 +50,10 @@ test('zedtutor reports available chapters for an unknown chapter', async () => {
   await assert.rejects(execFileAsync(process.execPath, [cliPath, '--chapter', '9']), (error) => {
     assert.equal(error.code, 1);
     assert.match(error.stderr, /Unknown chapter: 9/);
-    assert.match(error.stderr, /Available chapters:\n {2}1 {2}Fundamentals\n {2}3 {2}Zed Vim/);
-
-    return true;
-  });
-});
-
-test('zedtutor reports an unavailable chapter', async () => {
-  await assert.rejects(execFileAsync(process.execPath, [cliPath, '--chapter', '2']), (error) => {
-    assert.equal(error.code, 1);
-    assert.match(error.stderr, /Chapter 2 \(Advanced\) is not available yet\./);
+    assert.match(
+      error.stderr,
+      /Available chapters:\n {2}1 {2}Fundamentals\n {2}2 {2}Advanced\n {2}3 {2}Zed Vim/,
+    );
 
     return true;
   });

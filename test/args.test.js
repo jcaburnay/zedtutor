@@ -27,12 +27,15 @@ for (const args of [
   });
 }
 
-test('parseArgs rejects unavailable Chapter 2', () => {
-  assert.throws(
-    () => parseArgs(['--chapter', '2']),
-    /Chapter 2 \(Advanced\) is not available yet\./,
-  );
-});
+for (const args of [
+  ['--chapter', '2'],
+  ['--chapter', '02'],
+  ['-c', '2'],
+]) {
+  test(`parseArgs resolves ${args.join(' ')} to Chapter 2`, () => {
+    assert.deepEqual(parseArgs(args), { action: 'open', chapter: CHAPTERS[2] });
+  });
+}
 
 test('parseArgs rejects an unknown chapter', () => {
   assert.throws(() => parseArgs(['--chapter', '9']), /Unknown chapter: 9/);
@@ -61,7 +64,8 @@ test('formatHelp documents chapters and the Chapter 1 default', () => {
 
   assert.match(help, /zedtutor --chapter <number>/);
   assert.match(help, /1 {2}Fundamentals/);
-  assert.match(help, /2 {2}Advanced\s+\(coming soon\)/);
+  assert.match(help, /2 {2}Advanced/);
+  assert.doesNotMatch(help, /coming soon/);
   assert.match(help, /3 {2}Zed Vim/);
   assert.match(help, /without a chapter opens Chapter 1/);
 });

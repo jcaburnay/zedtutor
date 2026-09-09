@@ -9,10 +9,10 @@ project source code are licensed under the MIT License.
 
 See `LICENSE`.
 
-## Chapter 1 tutor content
+## Vim-derived tutor content
 
-`tutor/chapter01-fundamentals.txt` is derived from the Vim Tutor distributed
-with Vim and is licensed under the Vim License.
+`tutor/chapter01-fundamentals.txt` and `tutor/chapter02-advanced.txt` are derived
+from the Vim Tutor distributed with Vim and are licensed under the Vim License.
 
 See:
 
