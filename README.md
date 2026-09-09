@@ -250,4 +250,15 @@ Potential follow-ups include:
 
 ## License
 
-MIT
+The original zedtutor CLI, tests, configuration, and project documentation are
+licensed under the MIT License.
+
+The tutorial content in `tutor/tutor.txt` is derived from Vim's official
+`vimtutor` and is distributed under the Vim License.
+
+See:
+
+- `LICENSE`
+- `LICENSES.md`
+- `LICENSES/VIM-LICENSE.txt`
+- `tutor/UPSTREAM.md`

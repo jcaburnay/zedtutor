@@ -22,7 +22,7 @@
     "tutorial",
     "cli"
   ],
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSES.md",
   "engines": {
     "node": ">=20"
   },
@@ -31,7 +31,9 @@
     "src",
     "tutor",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "LICENSES.md",
+    "LICENSES"
   ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
