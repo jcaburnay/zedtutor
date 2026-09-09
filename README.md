@@ -2,9 +2,9 @@
 
 `zedtutor` is a small, hands-on Vim tutorial designed to be practiced directly inside [Zed](https://zed.dev/).
 
-Chapter 1 is adapted from the official Vim Tutor, while Chapter 3 covers
-Zed-specific Vim integrations. Instead of only reading about motions and
-commands, you practice them directly inside Zed.
+Chapters 1 and 2 are adapted from the official Vim Tutor, while Chapter 3
+covers Zed-specific Vim integrations. Instead of only reading about motions
+and commands, you practice them directly inside Zed.
 
 Running:
 
@@ -17,7 +17,7 @@ creates a fresh tutorial session and opens it in a dedicated Zed window.
 ## Chapters
 
 - Chapter 1: Fundamentals
-- Chapter 2: Advanced — planned, coming soon
+- Chapter 2: Advanced
 - Chapter 3: Zed Vim
 
 Running `zedtutor` without an option opens Chapter 1. You can select an
@@ -26,6 +26,7 @@ available chapter explicitly:
 ```bash
 zedtutor --chapter 1
 zedtutor -c 1
+zedtutor --chapter 2
 zedtutor --chapter 3
 ```
 
@@ -45,6 +46,9 @@ The available chapters cover:
 - yank and put
 - search
 - Visual mode
+- text objects
+- named, numbered, clipboard, and black-hole registers
+- marks and mark-based operations
 - Zed's command palette and supported Ex-style aliases
 - panes, buffers, the project panel, and the terminal
 - Zed Vim options, surround, commenting, Tree-sitter, LSP, and diagnostics
@@ -227,9 +231,11 @@ zedtutor/
 │   └── zed.test.js
 ├── tutor/
 │   ├── chapter01-fundamentals.txt
+│   ├── chapter02-advanced.txt
 │   ├── chapter03-zed-vim.txt
 │   ├── UPSTREAM.md
-│   └── VIMTUTOR-CHANGES.patch
+│   ├── VIMTUTOR-CHANGES.patch
+│   └── VIMTUTOR-CHAPTER02-CHANGES.patch
 ├── .editorconfig
 ├── .gitignore
 ├── .nvmrc
@@ -254,9 +260,8 @@ launching logic.
 
 ### `tutor/`
 
-Contains the available pristine chapter tutorials plus the Vim Tutor provenance
-record and generated patch. Chapter 2 is registered as planned but does not have
-a placeholder file.
+Contains the pristine chapter tutorials plus the Vim Tutor provenance record and
+generated patches for the two upstream-derived chapters.
 
 ### `test/`
 
@@ -278,11 +283,9 @@ The workflow checks:
 
 Potential follow-ups include:
 
-- Chapter 2: Advanced
 - selectable lessons
 - `zedtutor next`
 - progress tracking
-- text objects
 - exchange
 - multi-cursor exercises
 - npm distribution
@@ -293,9 +296,10 @@ Potential follow-ups include:
 The original zedtutor CLI, tests, configuration, and project documentation are
 licensed under the MIT License.
 
-Chapter 1 in `tutor/chapter01-fundamentals.txt` is derived from Vim's official
-`vimtutor` and is distributed under the Vim License. Chapter 3 is original
-zedtutor content and is licensed under the MIT License.
+Chapters 1 and 2 in `tutor/chapter01-fundamentals.txt` and
+`tutor/chapter02-advanced.txt` are derived from Vim's official `vimtutor` and
+are distributed under the Vim License. Chapter 3 is original zedtutor content
+and is licensed under the MIT License.
 
 See:
 

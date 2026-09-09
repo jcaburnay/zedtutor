@@ -1,0 +1,473 @@
+diff --git a/tmp/vimtutor2 b/tutor/chapter02-advanced.txt
+index 7c094f1..c2001d5 100644
+--- a/tmp/vimtutor2
++++ b/tutor/chapter02-advanced.txt
+@@ -0,0 +1 @@
++
+@@ -2 +3 @@
+-=    W e l c o m e   t o   t h e   V I M   T u t o r    -    Version 1.7      =
++=                         V I M   T U T O R                                   =
+@@ -4 +5 @@
+-=			    C H A P T E R   TWO				      =
++=                         CHAPTER TWO: ADVANCED                                =
+@@ -7,3 +8,3 @@
+-     Hic Sunt Dracones: if this is your first exposure to vim and you
+-     intended to avail yourself of the introductory chapter, kindly type
+-     :q!<ENTER> and run vimtutor for Chapter 1 instead.
++     This chapter builds on the fundamentals with text objects, registers,
++     clipboard-aware editing, and marks.  These tools let you operate on
++     logical pieces of text and move content without relying on line numbers.
+@@ -11,2 +12,2 @@
+-     The approximate time required to complete this chapter is 8-10 minutes,
+-     depending upon how much time is spent with experimentation.
++     The approximate time required to complete this chapter is 15-20 minutes,
++     depending on how much time you spend experimenting.
+@@ -14 +15,9 @@
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++     ATTENTION:
++     The commands in the lessons will modify this text.  That is expected.
++     When you run `zedtutor --chapter 2`, a fresh practice copy is created.
++
++     Before starting:
++       1. Complete Chapter 1 or be comfortable with motions and operators.
++       2. Make sure Zed Vim mode is enabled.
++       3. Press <ESC> so you are in Normal mode.
++       4. Press j enough times to move down to Lesson 2.1.1.
+@@ -15,0 +25,3 @@
++     This tutorial is adapted from Chapter 2 of the Vim Tutor distributed
++     with Vim.  See the repository's attribution and Vim License files.
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@@ -18 +29,0 @@
+-   ** Operate on logical text blocks with precision using text objects **
+@@ -20,5 +31 @@
+-  1. Practice word operations:
+-     - Place cursor on any word in the line below
+-     - Type  diw  to delete INNER word (word without surrounding space)
+-     - Type  daw  to delete A WORD (including trailing whitespace)
+-     - Try with other operators:  ciw  (change),  yiw  (yank),  gqiw  (format)
++   ** Operate on logical text blocks with precision using text objects. **
+@@ -26 +33,2 @@
+----> Practice on: "Vim's", (text_object), and 'powerful' words here.
++  A text object describes a meaningful piece of text.  Prefix it with  i  for
++  the inside of the object or  a  for the object plus its surroundings.
+@@ -28,5 +36 @@
+-  2. Work with bracketed content:
+-     - Put cursor inside any () {} [] <> pair below
+-     - Type  di(  or  dib  (delete inner bracket)
+-     - Type  da(  or  dab  (delete around brackets)
+-     - Try same with  i"/a"  for quotes,  it/at  for HTML/XML tags
++  1. Practice word operations on the line below:
+@@ -34 +38,4 @@
+----> Test cases: {curly}, [square], <angle>, and "quoted" items.
++     - Place the cursor anywhere on  temporary  and type  diw .
++     - Press  u , then type  daw  and notice how whitespace is included.
++     - Press  u , then try  ciw  to change the word and press <ESC>.
++     - Press  u , then type  yiw  to yank the word without moving first.
+@@ -36,4 +43 @@
+-  3. Paragraph and sentence manipulation:
+-     - Use  dip  to delete inner paragraph (cursor anywhere in paragraph)
+-     - Use  vap  to visually select entire paragraph
+-     - Try  das  to delete a sentence (works between .!? punctuation)
++---> Remove the temporary word, then restore it with undo.
+@@ -41,5 +45 @@
+-  4. Advanced combinations:
+-     - ciwnew<ESC>    - Change current word to "new"
+-     - yss"<ESC>      - Wrap entire line in quotes (vim-surround plugin style)
+-     - gUit           - Uppercase inner HTML tag content
+-     - va"p           - Select quoted text and paste over it
++  2. Work with bracketed and quoted content:
+@@ -47 +47,3 @@
+----> Final exercise: (Modify "this" text) by [applying {various} operations]<
++     - Put the cursor inside  (parentheses)  and type  di( .
++     - Press  u , then type  da(  to include the parentheses.
++     - Try the same pattern with  i[ / a[  and  i" / a" .
+@@ -49 +51 @@
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++---> Test cases: (round), [square], {curly}, and "quoted" text.
+@@ -51 +53 @@
+-		     Lesson 2.1.2: THE NAMED REGISTERS
++  3. Work with larger text objects:
+@@ -52,0 +55,3 @@
++     - Put the cursor in the short paragraph below and type  vip .
++     - Press <ESC>, then type  dap  to delete the paragraph.
++     - Press  u  to restore it.
+@@ -54 +59,2 @@
+-         ** Store two yanked words concurrently and then paste them **
++---> This short paragraph exists for text-object practice.
++     Its two lines should be selected or changed together.
+@@ -56 +62 @@
+-  1. Move the cursor to the line below marked --->
++  4. Compose operators and text objects:
+@@ -58 +64,4 @@
+-  2. Navigate to any point on the word 'Edward' and type   "ayiw
++	ciw	change inner word
++	das	delete a sentence
++	gUiw	uppercase inner word
++	va"	visually select a quoted string, including quotes
+@@ -60 +69,4 @@
+-MNEMONIC: into register(") named (a) (y)ank (i)nner (w)ord
++NOTE: Text objects make commands less dependent on the cursor's exact column.
++      Keep the cursor inside the object and describe what should be changed.
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++			       Lesson 2.1 SUMMARY
+@@ -62,2 +73,0 @@ MNEMONIC: into register(") named (a) (y)ank (i)nner (w)ord
+-  3. Navigate forward to the word 'cookie' (fk or 2fc or $2b or /co<ENTER>)
+-     and type   "byiw
+@@ -65 +75 @@ MNEMONIC: into register(") named (a) (y)ank (i)nner (w)ord
+-  4. Navigate to any point on the word 'Vince' and type   ciw<CTRL-R>a<ESC>
++  1. Use  i  for an inner text object and  a  for the surrounding object.
+@@ -67 +77 @@ MNEMONIC: into register(") named (a) (y)ank (i)nner (w)ord
+-MNEMONIC: (c)hange (i)nner (w)ord with <contents of (r)egister> named (a)
++  2. Common text objects include:
+@@ -69 +79,6 @@ MNEMONIC: (c)hange (i)nner (w)ord with <contents of (r)egister> named (a)
+-  5. Navigate to any point on the word 'cake' and type   ciw<CTRL-R>b<ESC>
++	iw / aw		inner word / a word
++	i( / a(		inside / around parentheses
++	i[ / a[		inside / around square brackets
++	i" / a"		inside / around double quotes
++	ip / ap		inner paragraph / a paragraph
++	is / as		inner sentence / a sentence
+@@ -71,2 +86,3 @@ MNEMONIC: (c)hange (i)nner (w)ord with <contents of (r)egister> named (a)
+---->  a) Edward will henceforth be in charge of the cookie rations
+-      b) In this capacity, Vince will have sole cake discretionary powers
++  3. Combine text objects with operators such as  d ,  c ,  y ,  v , and  gU .
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++		      Lesson 2.2.1: THE NAMED REGISTERS
+@@ -74,2 +89,0 @@ MNEMONIC: (c)hange (i)nner (w)ord with <contents of (r)egister> named (a)
+-NOTE: Delete also works into registers, i.e. "sdiw will delete the word under
+-      the cursor into register s.
+@@ -77,4 +91 @@ NOTE: Delete also works into registers, i.e. "sdiw will delete the word under
+-REFERENCE: 	Registers 	:h registers
+-		Named Registers :h quotea
+-		Motion 		:h motion.txt<ENTER> /inner<ENTER>
+-		CTRL-R		:h insert<ENTER> /CTRL-R<ENTER>
++       ** Store two yanked words concurrently and then insert them. **
+@@ -82 +93,2 @@ REFERENCE: 	Registers 	:h registers
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++  Registers are named storage locations.  Prefix an operator with  "a  through
++  "z  to choose a register instead of relying only on the default register.
+@@ -84 +96 @@ REFERENCE: 	Registers 	:h registers
+-		     Lesson 2.1.3: THE EXPRESSION REGISTER
++  1. Move the cursor to the line below marked --->.
+@@ -85,0 +98 @@ REFERENCE: 	Registers 	:h registers
++  2. Navigate to any point on the word  Edward  and type:
+@@ -87 +100 @@ REFERENCE: 	Registers 	:h registers
+-	     ** Insert the results of calculations on the fly **
++	"ayiw
+@@ -89 +102 @@ REFERENCE: 	Registers 	:h registers
+-  1. Move the cursor to the line below marked --->
++MNEMONIC: into register (") named (a), (y)ank (i)nner (w)ord
+@@ -91 +104 @@ REFERENCE: 	Registers 	:h registers
+-  2. Navigate to any point on the supplied number
++  3. Navigate to the word  cookie  and type:
+@@ -93 +106 @@ REFERENCE: 	Registers 	:h registers
+-  3. Type ciw<CTRL-R> followed by  =60*60*24<ENTER>
++	"byiw
+@@ -95,2 +108 @@ REFERENCE: 	Registers 	:h registers
+-  4. On the next line, enter insert mode and add today's date with 
+-     <CTRL-R> followed by  =system('date')<ENTER>
++  4. Navigate to  Vince  on the next line and type:
+@@ -98,2 +110 @@ REFERENCE: 	Registers 	:h registers
+-NOTE: All calls to system are OS dependent, e.g. on Windows use 
+-      system('date /t')   or  :r!date /t
++	ciw<CTRL-R>a<ESC>
+@@ -101,2 +112 @@ NOTE: All calls to system are OS dependent, e.g. on Windows use
+----> I have forgotten the exact number of seconds in a day, is it 84600?
+-     Today's date is: 
++  5. Navigate to  cake  and type:
+@@ -104,2 +114 @@ NOTE: All calls to system are OS dependent, e.g. on Windows use
+-NOTE: the same can be achieved with :pu=system('date')
+-      or, with fewer keystrokes :r!date
++	ciw<CTRL-R>b<ESC>
+@@ -107 +116,2 @@ NOTE: the same can be achieved with :pu=system('date')
+-REFERENCE: 	Expression Register 	:h quote=
++--->  a) Edward will henceforth be in charge of the cookie rations.
++      b) In this capacity, Vince will have sole cake discretionary powers.
+@@ -109 +119,2 @@ REFERENCE: 	Expression Register 	:h quote=
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++  6. Type  :registers <ENTER>  to inspect the registers in Zed.  Close the
++     register view when you are ready to continue.
+@@ -111 +122,5 @@ REFERENCE: 	Expression Register 	:h quote=
+-		     Lesson 2.1.4: THE NUMBERED REGISTERS
++NOTE: Delete also works with named registers.  For example,  "sdiw  deletes
++      the word under the cursor into register s.  An uppercase register name,
++      such as  "Ayy , appends to the corresponding lowercase register.
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++		     Lesson 2.2.2: THE NUMBERED REGISTERS
+@@ -114 +129 @@ REFERENCE: 	Expression Register 	:h quote=
+-	** Press  yy and dd to witness their effect on the registers **
++       ** Use linewise yanks and deletions to fill numbered registers. **
+@@ -116 +131,2 @@ REFERENCE: 	Expression Register 	:h quote=
+-  1. Move the cursor to the line below marked --->
++  Register 0 holds the most recent yank.  Linewise deletions move through
++  registers 1 through 9, with the newest deletion in register 1.
+@@ -118 +134 @@ REFERENCE: 	Expression Register 	:h quote=
+-  2. yank the zeroth line, then inspect registers with :reg<ENTER>
++  1. Move to the first line below marked ---> and type  yy .
+@@ -120,2 +136,2 @@ REFERENCE: 	Expression Register 	:h quote=
+-  3. delete line 0. with "cdd, then inspect registers
+-     (Where do you expect line 0 to be?)
++  2. Type  :registers <ENTER>  and find the yanked line in register 0.
++     Close the register view and return to the exercise.
+@@ -123 +139 @@ REFERENCE: 	Expression Register 	:h quote=
+-  4. continue deleting each successive line, inspecting :reg as you go
++  3. Delete line 0 into named register c with  "cdd .
+@@ -125,2 +141,3 @@ REFERENCE: 	Expression Register 	:h quote=
+-NOTE: You should notice that old full-line deletions move down the list
+-      as new full-line deletions are added
++  4. Continue deleting each successive line, from line 9 through line 1.
++     Inspect  :registers  as you go and watch older line deletions move down
++     through numbered registers.
+@@ -128 +145,2 @@ NOTE: You should notice that old full-line deletions move down the list
+-  5. Now (p)aste the following registers in order; c, 7, 4, 8, 2. i.e. "7p
++  5. Put registers c, 7, 4, 8, and 2 in that order.  For example, use  "7p
++     to put register 7.  The lines should form a short message.
+@@ -141,2 +159,4 @@ NOTE: You should notice that old full-line deletions move down the list
+-NOTE: Whole line deletions (dd) are much longer lived in the numbered registers
+-      than whole line yanks, or deletions involving smaller movements
++NOTE: Whole-line deletions remain in the numbered deletion registers longer
++      than yanks or deletions involving smaller motions.
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++		       Lesson 2.2.3: SPECIAL REGISTERS
+@@ -144 +163,0 @@ NOTE: Whole line deletions (dd) are much longer lived in the numbered registers
+-REFERENCE: 	Numbered Registers 	:h quote0
+@@ -146 +165,15 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++     ** Use clipboard and black-hole registers for deliberate editing. **
++
++  1. The  +  register connects explicitly to the system clipboard:
++
++	"+yy		yank the current line to the system clipboard
++	"+p		put text from the system clipboard
++
++     Try  "+yy  on the line below, then paste into another application.
++
++---> Copy this line through the system clipboard register.
++
++  2. The  *  register uses the primary selection on Linux and FreeBSD.  On
++     other platforms it uses the system clipboard like the  +  register.
++
++  3. The black-hole register  _  discards text:
+@@ -148 +181,3 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-		     Lesson 2.1.5: SPECIAL REGISTERS
++	"_daw		delete a word without changing yank history
++	"_dd		delete a line without changing yank history
++	"_dap		delete a paragraph without changing yank history
+@@ -150 +185,2 @@ REFERENCE: 	Numbered Registers 	:h quote0
+- ** Use system clipboard and blackhole registers for advanced editing **
++  4. Yank the word  preserved  with  yiw , then delete  disposable  using
++     "_diw .  Type  p  and confirm that the yanked word is still available.
+@@ -152,3 +188 @@ REFERENCE: 	Numbered Registers 	:h quote0
+- Note: Clipboard use requires X11/Wayland libraries on Linux systems AND
+-       a Vim built with "+clipboard" (usually a Huge build). Check with
+-       ":version"  and ":echo has('clipboard_working')"
++---> preserved disposable
+@@ -156,4 +190,5 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-  1. Clipboard registers  +  and  *  :
+-     - "+y  - Yank to system clipboard (e.g. "+yy for current line)
+-     - "+p  - Paste from system clipboard
+-     - "* is primary selection on X11 (middle-click), "+ is clipboard
++  5. Zed's `vim.use_system_clipboard` setting controls how unnamed yank and
++     put operations interact with the system clipboard.  Explicit  "+  and  "*
++     register commands continue to identify the clipboard directly.
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++			       Lesson 2.2 SUMMARY
+@@ -161 +195,0 @@ REFERENCE: 	Numbered Registers 	:h quote0
+----> Try: "+yy then paste into another application with Ctrl-V or Cmd+V
+@@ -163,8 +197 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-  2. Blackhole register  _  discards text:
+-     - "_daw  - Delete word without saving to any register
+-     - Useful when you don't want to overwrite your default " register
+-     - Note this is using the "a Word" text object, introduced in a previous
+-       lession
+-     - "_dd   - Delete line without saving
+-     - "_dap  - Delete paragraph without saving
+-     - Combine with counts: 3"_dw
++  1. Select a named register by prefixing an operation with  "  and its name:
+@@ -172 +199,3 @@ REFERENCE: 	Numbered Registers 	:h quote0
+----> Practice: "_diw on any word to delete it without affecting yank history
++	"ayiw		yank a word into register a
++	"ap		put register a
++	<CTRL-R>a	insert register a while in Insert mode
+@@ -174,4 +203,2 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-  3. Combine with visual selections:
+-     - Select text with V then "+y
+-     - To paste from clipboard in insert mode: Ctrl-R +
+-     - Try opening another application and paste from clipboard
++  2. Register 0 holds the latest yank.  Registers 1 through 9 keep a history
++     of linewise deletions.
+@@ -179,6 +206 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-  4. Remember:
+-     - Clipboard registers work across different Vim instances
+-     - Clipboard register is not always working
+-     - Blackhole prevents accidental register overwrites
+-     - Default " register is still available for normal yank/paste
+-     - Named registers (a-z) remain private to each Vim session
++  3. Use  :registers  to inspect Zed's current register contents.
+@@ -186,5 +208,2 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-  5. Clipboard troubleshooting:
+-     - Check support with :echo has('clipboard_working')
+-     - 1 means available, 0 means not compiled in
+-     - On Linux, may need vim-gtk or vim-x11 package
+-       (check :version output)
++  4. The  +  and  *  registers interact with the clipboard.  The  _  register
++     discards text without replacing your saved yank.
+@@ -191,0 +211,2 @@ REFERENCE: 	Numbered Registers 	:h quote0
++NOTE: The expression register from full Vim is not supported by Zed and is not
++      part of this chapter.
+@@ -192,0 +214,9 @@ REFERENCE: 	Numbered Registers 	:h quote0
++			 Lesson 2.3.1: THE BEAUTY OF MARKS
++
++
++        ** Mark locations so commands do not depend on line numbers. **
++
++  Marks remember useful locations.  Lowercase marks are local to a buffer.
++  Use  m  followed by a letter to set one.
++
++  1. Move to the line marked  FIRST  and type  ma  to set mark a.
+@@ -194 +224 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-		     Lesson 2.1.6: THE BEAUTY OF MARKS
++  2. Move down to the line marked  SECOND .
+@@ -196 +226 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-	           ** Code monkey arithmetic avoidance **
++  3. Type  'a  to jump to the line containing mark a.
+@@ -198,4 +228 @@ REFERENCE: 	Numbered Registers 	:h quote0
+-NOTE: a common conundrum when coding is moving around large chunks of code.
+-      The following technique helps avoid number line calculations associated
+-      with operations like   "a147d   or   :945,1091d a   or even worse using
+-      i<CTRL-R> followed by   =1091-945<ENTER>   first
++  4. Move back down, then type  `a  to jump to mark a's exact position.
+@@ -203 +230,3 @@ NOTE: a common conundrum when coding is moving around large chunks of code.
+-  1. Move the cursor to the line below marked --->
++---> FIRST: place mark a on a word in this line.
++     Move through these lines after setting the mark.
++     SECOND: jump back with 'a and `a.
+@@ -205 +234,2 @@ NOTE: a common conundrum when coding is moving around large chunks of code.
+-  2. Go to the first line of the function and mark it with   ma
++  5. Type  :marks <ENTER>  to inspect the marks known to Zed.  Close the marks
++     view and return to this lesson.
+@@ -207 +237 @@ NOTE: a common conundrum when coding is moving around large chunks of code.
+-NOTE: exact position on line is NOT important!
++  Now use a mark as the destination of an operator:
+@@ -209,2 +239 @@ NOTE: exact position on line is NOT important!
+-  3. Navigate to the end of the line and then the end of the code block 
+-     with   $%
++  6. Move to the first line of the function below and type  ma .
+@@ -212 +241 @@ NOTE: exact position on line is NOT important!
+-  4. Delete the block into register a with   "ad'a
++  7. Move to the closing brace by typing  $% .
+@@ -214,2 +243 @@ NOTE: exact position on line is NOT important!
+-MNEMONIC: into register(") named (a) put the (d)eletion from the cursor to the
+-          LINE containing mark(') (a)
++  8. Delete the block into register a with:
+@@ -217 +245 @@ MNEMONIC: into register(") named (a) put the (d)eletion from the cursor to the
+-  5. Paste the block between BBB and CCC   "ap
++	"ad'a
+@@ -219 +247,4 @@ MNEMONIC: into register(") named (a) put the (d)eletion from the cursor to the
+-NOTE: practice this operation multiple times to become fluent   ma$%"ad'a
++MNEMONIC: into register (") named (a), (d)elete through the line containing
++          mark (') named (a)
++
++  9. Move between BBB and CCC and type  "ap  to put the block there.
+@@ -223 +254 @@ NOTE: practice this operation multiple times to become fluent   ma$%"ad'a
+-       if ( somethingIsTrue ) {
++       if (somethingIsTrue) {
+@@ -226,7 +257 @@ NOTE: practice this operation multiple times to become fluent   ma$%"ad'a
+-       // the taxonomy of our function has changed and it
+-       // no longer makes alphabetical sense in its current position
+-
+-       // imagine hundreds of lines of code
+-
+-       // naively you could navigate to the start and end and record or
+-       // remember each line number
++       // Imagine hundreds of lines of code here.
+@@ -237,3 +262,6 @@ NOTE: practice this operation multiple times to become fluent   ma$%"ad'a
+-NOTE: marks and registers do not share a namespace, therefore register a is
+-      completely independent of mark a. This is not true of registers and
+-      macros.
++NOTE: Marks and registers do not share a namespace.  Register a is independent
++      of mark a.  The  '  motion is linewise; the  `  motion preserves the
++      exact position.
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++			       Lesson 2.3 SUMMARY
++
+@@ -241,2 +269 @@ NOTE: marks and registers do not share a namespace, therefore register a is
+-REFERENCE: 	Marks 		:h marks
+-		Mark Motions 	:h mark-motions  (difference between ' and `)
++  1. Set a lowercase mark with  m  followed by its name, such as  ma .
+@@ -244 +271,3 @@ REFERENCE: 	Marks 		:h marks
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++  2. Jump linewise to a mark with  'a .
++
++  3. Jump to a mark's exact position with  `a .
+@@ -246,39 +275 @@ REFERENCE: 	Marks 		:h marks
+-		     Lesson 2.1 SUMMARY
+-
+-
+-  1. Text objects provide precision editing:
+-     - iw/aw - inner/around word
+-     - i[/a[ - inner/around bracket
+-     - i"/a" - inner/around quotes
+-     - it/at - inner/around tag
+-     - ip/ap - inner/around paragraph
+-     - is/as - inner/around sentence
+-
+-  2. To store (yank, delete) text into, and retrieve (paste) from, a total of
+-     26 registers (a-z) 
+-  3. Yank a whole word from anywhere within a word:   yiw
+-  4. Change a whole word from anywhere within a word:   ciw
+-  5. Insert text directly from registers in insert mode:   (C-r)a
+-
+-  6. Insert the results of simple arithmetic operations: <CTRL-R> followed by
+-     =60*60<ENTER>
+-     in insert mode
+-  7. Insert the results of system calls: <CTRL-R> followed by
+-     =system('ls -1')<ENTER>
+-     in insert mode
+-
+-  8. Inspect registers with   :reg
+-  9. Learn the final destination of whole line deletions: dd in the numbered
+-     registers, i.e. descending from register 1 - 9.  Appreciate that whole
+-     line deletions are preserved in the numbered registers longer than any
+-     other operation
+- 10. Learn the final destination of all yanks in the numbered registers and
+-     how ephemeral they are
+-
+- 11. Place marks from command mode   m[a-zA-Z0-9]
+- 12. Move line-wise to a mark with   '
+-
+- 13. Special registers:
+-     - "+/*  - System clipboard (OS dependent)
+-     - "_    - Blackhole (discard deleted/yanked text)
+-     - "=    - Expression register
++  4. Use marks as motion destinations for operators, such as  d'a .
+@@ -285,0 +277 @@ REFERENCE: 	Marks 		:h marks
++  5. Type  :marks  to inspect marks in Zed.
+@@ -286,0 +279,16 @@ REFERENCE: 	Marks 		:h marks
++  This concludes Chapter 2: Advanced.
++
++  You have practiced describing logical text with text objects, keeping
++  multiple pieces of text in registers, controlling clipboard and deletion
++  behavior, and using marks instead of counting lines.
++
++  The central pattern is still the one introduced in Chapter 1:
++
++	operator -> text object or marked destination
++
++  Run `zedtutor --chapter 2` whenever you want a fresh practice copy.
++
++
++  ---------------------------------------------------------------------------
++  UPSTREAM ATTRIBUTION
++  ---------------------------------------------------------------------------
+@@ -288 +296,2 @@ REFERENCE: 	Marks 		:h marks
+-  This concludes chapter two of the Vim Tutor. It is a work in progress.
++  This tutorial is derived from Chapter 2 of the Vim Tutor distributed with
++  Vim.  The upstream chapter was written by Paul D. Parker.
+@@ -290 +299,3 @@ REFERENCE: 	Marks 		:h marks
+-  This chapter was written by Paul D. Parker.
++  This version has been adapted as the advanced chapter of zedtutor.  The
++  expression-register lesson was omitted because Zed does not implement Vim's
++  expression register.
+@@ -291,0 +303 @@ REFERENCE: 	Marks 		:h marks
++  See the repository's Vim License and attribution files for licensing details.

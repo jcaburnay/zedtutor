@@ -45,3 +45,15 @@ test('createSession preserves the selected chapter filename', async () => {
 
   assert.equal(sessionPath, join(sessionDir, 'chapter03-zed-vim.txt'));
 });
+
+test('createSession preserves the Chapter 2 filename', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'zedtutor-test-'));
+  const templatePath = join(root, 'chapter02-advanced.txt');
+  const sessionDir = join(root, 'session');
+
+  await writeFile(templatePath, 'Advanced practice\n', 'utf8');
+
+  const sessionPath = await createSession({ templatePath, sessionDir });
+
+  assert.equal(sessionPath, join(sessionDir, 'chapter02-advanced.txt'));
+});

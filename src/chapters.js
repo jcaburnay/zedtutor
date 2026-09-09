@@ -9,7 +9,7 @@ export const CHAPTERS = Object.freeze({
     number: 2,
     title: 'Advanced',
     file: 'chapter02-advanced.txt',
-    available: false,
+    available: true,
   }),
   3: Object.freeze({
     number: 3,

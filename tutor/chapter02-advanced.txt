@@ -1,0 +1,304 @@
+
+===============================================================================
+=                         V I M   T U T O R                                   =
+===============================================================================
+=                         CHAPTER TWO: ADVANCED                                =
+===============================================================================
+
+     This chapter builds on the fundamentals with text objects, registers,
+     clipboard-aware editing, and marks.  These tools let you operate on
+     logical pieces of text and move content without relying on line numbers.
+
+     The approximate time required to complete this chapter is 15-20 minutes,
+     depending on how much time you spend experimenting.
+
+     ATTENTION:
+     The commands in the lessons will modify this text.  That is expected.
+     When you run `zedtutor --chapter 2`, a fresh practice copy is created.
+
+     Before starting:
+       1. Complete Chapter 1 or be comfortable with motions and operators.
+       2. Make sure Zed Vim mode is enabled.
+       3. Press <ESC> so you are in Normal mode.
+       4. Press j enough times to move down to Lesson 2.1.1.
+
+     This tutorial is adapted from Chapter 2 of the Vim Tutor distributed
+     with Vim.  See the repository's attribution and Vim License files.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		     Lesson 2.1.1: MASTERING TEXT OBJECTS
+
+
+   ** Operate on logical text blocks with precision using text objects. **
+
+  A text object describes a meaningful piece of text.  Prefix it with  i  for
+  the inside of the object or  a  for the object plus its surroundings.
+
+  1. Practice word operations on the line below:
+
+     - Place the cursor anywhere on  temporary  and type  diw .
+     - Press  u , then type  daw  and notice how whitespace is included.
+     - Press  u , then try  ciw  to change the word and press <ESC>.
+     - Press  u , then type  yiw  to yank the word without moving first.
+
+---> Remove the temporary word, then restore it with undo.
+
+  2. Work with bracketed and quoted content:
+
+     - Put the cursor inside  (parentheses)  and type  di( .
+     - Press  u , then type  da(  to include the parentheses.
+     - Try the same pattern with  i[ / a[  and  i" / a" .
+
+---> Test cases: (round), [square], {curly}, and "quoted" text.
+
+  3. Work with larger text objects:
+
+     - Put the cursor in the short paragraph below and type  vip .
+     - Press <ESC>, then type  dap  to delete the paragraph.
+     - Press  u  to restore it.
+
+---> This short paragraph exists for text-object practice.
+     Its two lines should be selected or changed together.
+
+  4. Compose operators and text objects:
+
+	ciw	change inner word
+	das	delete a sentence
+	gUiw	uppercase inner word
+	va"	visually select a quoted string, including quotes
+
+NOTE: Text objects make commands less dependent on the cursor's exact column.
+      Keep the cursor inside the object and describe what should be changed.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			       Lesson 2.1 SUMMARY
+
+
+  1. Use  i  for an inner text object and  a  for the surrounding object.
+
+  2. Common text objects include:
+
+	iw / aw		inner word / a word
+	i( / a(		inside / around parentheses
+	i[ / a[		inside / around square brackets
+	i" / a"		inside / around double quotes
+	ip / ap		inner paragraph / a paragraph
+	is / as		inner sentence / a sentence
+
+  3. Combine text objects with operators such as  d ,  c ,  y ,  v , and  gU .
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		      Lesson 2.2.1: THE NAMED REGISTERS
+
+
+       ** Store two yanked words concurrently and then insert them. **
+
+  Registers are named storage locations.  Prefix an operator with  "a  through
+  "z  to choose a register instead of relying only on the default register.
+
+  1. Move the cursor to the line below marked --->.
+
+  2. Navigate to any point on the word  Edward  and type:
+
+	"ayiw
+
+MNEMONIC: into register (") named (a), (y)ank (i)nner (w)ord
+
+  3. Navigate to the word  cookie  and type:
+
+	"byiw
+
+  4. Navigate to  Vince  on the next line and type:
+
+	ciw<CTRL-R>a<ESC>
+
+  5. Navigate to  cake  and type:
+
+	ciw<CTRL-R>b<ESC>
+
+--->  a) Edward will henceforth be in charge of the cookie rations.
+      b) In this capacity, Vince will have sole cake discretionary powers.
+
+  6. Type  :registers <ENTER>  to inspect the registers in Zed.  Close the
+     register view when you are ready to continue.
+
+NOTE: Delete also works with named registers.  For example,  "sdiw  deletes
+      the word under the cursor into register s.  An uppercase register name,
+      such as  "Ayy , appends to the corresponding lowercase register.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		     Lesson 2.2.2: THE NUMBERED REGISTERS
+
+
+       ** Use linewise yanks and deletions to fill numbered registers. **
+
+  Register 0 holds the most recent yank.  Linewise deletions move through
+  registers 1 through 9, with the newest deletion in register 1.
+
+  1. Move to the first line below marked ---> and type  yy .
+
+  2. Type  :registers <ENTER>  and find the yanked line in register 0.
+     Close the register view and return to the exercise.
+
+  3. Delete line 0 into named register c with  "cdd .
+
+  4. Continue deleting each successive line, from line 9 through line 1.
+     Inspect  :registers  as you go and watch older line deletions move down
+     through numbered registers.
+
+  5. Put registers c, 7, 4, 8, and 2 in that order.  For example, use  "7p
+     to put register 7.  The lines should form a short message.
+
+---> 0. This
+     9. wobble
+     8. secret
+     7. is
+     6. on
+     5. axis
+     4. a
+     3. war
+     2. message
+     1. tribute
+
+NOTE: Whole-line deletions remain in the numbered deletion registers longer
+      than yanks or deletions involving smaller motions.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		       Lesson 2.2.3: SPECIAL REGISTERS
+
+
+     ** Use clipboard and black-hole registers for deliberate editing. **
+
+  1. The  +  register connects explicitly to the system clipboard:
+
+	"+yy		yank the current line to the system clipboard
+	"+p		put text from the system clipboard
+
+     Try  "+yy  on the line below, then paste into another application.
+
+---> Copy this line through the system clipboard register.
+
+  2. The  *  register uses the primary selection on Linux and FreeBSD.  On
+     other platforms it uses the system clipboard like the  +  register.
+
+  3. The black-hole register  _  discards text:
+
+	"_daw		delete a word without changing yank history
+	"_dd		delete a line without changing yank history
+	"_dap		delete a paragraph without changing yank history
+
+  4. Yank the word  preserved  with  yiw , then delete  disposable  using
+     "_diw .  Type  p  and confirm that the yanked word is still available.
+
+---> preserved disposable
+
+  5. Zed's `vim.use_system_clipboard` setting controls how unnamed yank and
+     put operations interact with the system clipboard.  Explicit  "+  and  "*
+     register commands continue to identify the clipboard directly.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			       Lesson 2.2 SUMMARY
+
+
+  1. Select a named register by prefixing an operation with  "  and its name:
+
+	"ayiw		yank a word into register a
+	"ap		put register a
+	<CTRL-R>a	insert register a while in Insert mode
+
+  2. Register 0 holds the latest yank.  Registers 1 through 9 keep a history
+     of linewise deletions.
+
+  3. Use  :registers  to inspect Zed's current register contents.
+
+  4. The  +  and  *  registers interact with the clipboard.  The  _  register
+     discards text without replacing your saved yank.
+
+NOTE: The expression register from full Vim is not supported by Zed and is not
+      part of this chapter.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			 Lesson 2.3.1: THE BEAUTY OF MARKS
+
+
+        ** Mark locations so commands do not depend on line numbers. **
+
+  Marks remember useful locations.  Lowercase marks are local to a buffer.
+  Use  m  followed by a letter to set one.
+
+  1. Move to the line marked  FIRST  and type  ma  to set mark a.
+
+  2. Move down to the line marked  SECOND .
+
+  3. Type  'a  to jump to the line containing mark a.
+
+  4. Move back down, then type  `a  to jump to mark a's exact position.
+
+---> FIRST: place mark a on a word in this line.
+     Move through these lines after setting the mark.
+     SECOND: jump back with 'a and `a.
+
+  5. Type  :marks <ENTER>  to inspect the marks known to Zed.  Close the marks
+     view and return to this lesson.
+
+  Now use a mark as the destination of an operator:
+
+  6. Move to the first line of the function below and type  ma .
+
+  7. Move to the closing brace by typing  $% .
+
+  8. Delete the block into register a with:
+
+	"ad'a
+
+MNEMONIC: into register (") named (a), (d)elete through the line containing
+          mark (') named (a)
+
+  9. Move between BBB and CCC and type  "ap  to put the block there.
+
+---> AAA
+     function itGotRealBigRealFast() {
+       if (somethingIsTrue) {
+         doIt()
+       }
+       // Imagine hundreds of lines of code here.
+     }
+     BBB
+     CCC
+
+NOTE: Marks and registers do not share a namespace.  Register a is independent
+      of mark a.  The  '  motion is linewise; the  `  motion preserves the
+      exact position.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			       Lesson 2.3 SUMMARY
+
+
+  1. Set a lowercase mark with  m  followed by its name, such as  ma .
+
+  2. Jump linewise to a mark with  'a .
+
+  3. Jump to a mark's exact position with  `a .
+
+  4. Use marks as motion destinations for operators, such as  d'a .
+
+  5. Type  :marks  to inspect marks in Zed.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  This concludes Chapter 2: Advanced.
+
+  You have practiced describing logical text with text objects, keeping
+  multiple pieces of text in registers, controlling clipboard and deletion
+  behavior, and using marks instead of counting lines.
+
+  The central pattern is still the one introduced in Chapter 1:
+
+	operator -> text object or marked destination
+
+  Run `zedtutor --chapter 2` whenever you want a fresh practice copy.
+
+
+  ---------------------------------------------------------------------------
+  UPSTREAM ATTRIBUTION
+  ---------------------------------------------------------------------------
+
+  This tutorial is derived from Chapter 2 of the Vim Tutor distributed with
+  Vim.  The upstream chapter was written by Paul D. Parker.
+
+  This version has been adapted as the advanced chapter of zedtutor.  The
+  expression-register lesson was omitted because Zed does not implement Vim's
+  expression register.
+
+  See the repository's Vim License and attribution files for licensing details.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

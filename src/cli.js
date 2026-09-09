@@ -56,7 +56,7 @@ Usage:
 
 Chapters:
   1  Fundamentals
-  2  Advanced       (coming soon)
+  2  Advanced
   3  Zed Vim
 
 Running zedtutor without a chapter opens Chapter 1.`;
