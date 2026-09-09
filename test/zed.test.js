@@ -82,7 +82,7 @@ test('openInZed opens a new Zed window and waits for the session to close', asyn
     command: 'zed',
     args: ['-n', '--wait', '/tmp/zedtutor-abcd/chapter01-fundamentals.txt'],
     options: {
-      stdio: 'ignore',
+      stdio: ['ignore', 'ignore', 'inherit'],
     },
   });
 
@@ -97,4 +97,22 @@ test('openInZed reports launcher errors', async () => {
   child.emit('error', new Error('could not launch Zed'));
 
   await assert.rejects(opened, /could not launch Zed/);
+});
+
+test('openInZed reports unexpected exit statuses', async () => {
+  const child = new EventEmitter();
+  const opened = openInZed('zed', '/tmp/tutorial.txt', () => child);
+
+  child.emit('close', 2, null);
+
+  await assert.rejects(opened, /Zed CLI exited with status 2\./);
+});
+
+test('openInZed reports signal termination', async () => {
+  const child = new EventEmitter();
+  const opened = openInZed('zed', '/tmp/tutorial.txt', () => child);
+
+  child.emit('close', null, 'SIGTERM');
+
+  await assert.rejects(opened, /Zed CLI terminated by SIGTERM\./);
 });
